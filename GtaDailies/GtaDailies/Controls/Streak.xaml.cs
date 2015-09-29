@@ -31,6 +31,7 @@ namespace GtaDailies.Controls
                 if (MainPage.Changed)
                 {
                     Update();
+                    MainPage.Changed = false;
                 }
             };
         }
