@@ -96,6 +96,12 @@
     <Compile Include="Controls\DailiesExpire.xaml.cs">
       <DependentUpon>DailiesExpire.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MarkButton.xaml.cs">
+      <DependentUpon>MarkButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Streak.xaml.cs">
+      <DependentUpon>Streak.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -120,6 +126,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\DailiesExpire.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MarkButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Streak.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

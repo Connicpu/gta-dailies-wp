@@ -10,8 +10,15 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
-            <c:DailiesExpire />
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <TextBlock FontSize="{StaticResource PivotHeaderItemFontSize}">GTAO Dailies</TextBlock>
+            <c:DailiesExpire Margin="5,10" />
+            <c:Streak Margin="5,0,5,10" />
         </StackPanel>
+        <c:MarkButton Grid.Row="1" />
     </Grid>
 </Page>

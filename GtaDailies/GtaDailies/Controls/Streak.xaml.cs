@@ -18,18 +18,20 @@ using Windows.UI.Xaml.Navigation;
 
 namespace GtaDailies.Controls
 {
-    public sealed partial class DailiesExpire : UserControl
+    public sealed partial class Streak : UserControl
     {
-        Logic logic_ = new Logic();
-        DispatcherTimer timer_ = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+        DispatcherTimer timer_ = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
 
-        public DailiesExpire()
+        public Streak()
         {
             InitializeComponent();
             Update();
             timer_.Tick += delegate
             {
-                Update();
+                if (MainPage.Changed)
+                {
+                    Update();
+                }
             };
         }
 
@@ -43,12 +45,13 @@ namespace GtaDailies.Controls
             timer_.Stop();
         }
 
-        void Update()
+        public async void Update()
         {
-            var expires_at = logic_.GetExpiration().ToLocalTime().ToString("MM/dd HH:mm");
-            var expires_in = logic_.GetTimeUntilExpiration().ToString("hh\\:mm\\:ss");
-            ExpiresAt.Text = expires_at;
-            ExpiresIn.Text = expires_in;
+            var state = await State.Load();
+            var logic = new Logic();
+            var streak = logic.GetStreak(state);
+
+            StreakValue.Text = string.Format("{0} day{1}", streak, streak != 1 ? "s" : "");
         }
     }
 }

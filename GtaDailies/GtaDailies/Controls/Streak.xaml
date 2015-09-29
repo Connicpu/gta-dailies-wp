@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="GtaDailies.Controls.DailiesExpire"
+    x:Class="GtaDailies.Controls.Streak"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GtaDailies.Controls"
@@ -10,11 +10,9 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    
+
     <StackPanel>
-        <TextBlock FontSize="{StaticResource TextStyleExtraLargeFontSize}">Daily Expiration</TextBlock>
-        <TextBlock x:Name="ExpiresAt" FontSize="{StaticResource TextStyleLargeFontSize}" Margin="15,0,0,10" />
-        <TextBlock FontSize="{StaticResource TextStyleExtraLargeFontSize}">Time to Complete</TextBlock>
-        <TextBlock x:Name="ExpiresIn" FontSize="{StaticResource TextStyleLargeFontSize}" Margin="15,0,0,10" />
+        <TextBlock FontSize="{StaticResource TextStyleExtraLargeFontSize}">Current Streak</TextBlock>
+        <TextBlock x:Name="StreakValue" FontSize="{StaticResource TextStyleLargeFontSize}" Margin="15,0,0,10" />
     </StackPanel>
 </UserControl>

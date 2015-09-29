@@ -34,17 +34,93 @@ namespace GtaLogic
                 reset += TimeSpan.FromHours(6 - reset.Hour);
             }
 
-            return reset.ToLocalTime();
+            return reset;
         }
 
         public TimeSpan GetTimeUntilExpiration()
         {
-            return GetExpiration() - DateTime.Now;
+            return GetExpiration() - DateTime.UtcNow;
+        }
+
+        public bool HasCompletedToday(State state)
+        {
+            var times = state.Data.CompletionTimes;
+            var expiration = GetExpiration().AddDays(-1);
+            return times.Any() && times.Last() > expiration;
         }
 
         public int GetStreak(State state)
         {
-            return 0;
+            int count = 0;
+            var expiration = GetExpiration().AddDays(-1);
+            var times = state.Data.CompletionTimes;
+            var start = times.Count - 1;
+
+            if (HasCompletedToday(state))
+            {
+                start--;
+                count++;
+            }
+
+            for (int i = start; i >= 0; --i)
+            {
+                expiration = expiration.AddDays(-1);
+                if (times[i] > expiration)
+                {
+                    count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return count;
+        }
+
+        public void MarkCompletion(State state)
+        {
+            if (HasCompletedToday(state))
+            {
+                return;
+            }
+
+            state.Data.CompletionTimes.Add(DateTime.UtcNow);
+        }
+
+        public bool ShouldNotify(State state)
+        {
+            if (HasCompletedToday(state))
+            {
+                return false;
+            }
+
+            var expires = GetExpiration();
+            var now = DateTime.UtcNow;
+            var timeLeft = expires - now;
+            var timeSince = now - state.Data.LastNotification;
+
+            if (timeLeft.Hours > 9)
+            {
+                return false;
+            }
+
+            if (timeLeft.Hours >= 4 && timeSince.Hours < 3)
+            {
+                return false;
+            }
+
+            if (timeLeft.Hours >= 2 && timeSince.Hours < 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public void OnNotify(State state)
+        {
+            state.Data.LastNotification = DateTime.UtcNow;
         }
     }
 }
