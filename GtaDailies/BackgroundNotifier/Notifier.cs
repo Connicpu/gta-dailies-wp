@@ -29,7 +29,7 @@ namespace BackgroundNotifier
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            SendNotification("You have X hours to do them!");
+            SendNotification("You have X hours for dailies");
         }
     }
 }
